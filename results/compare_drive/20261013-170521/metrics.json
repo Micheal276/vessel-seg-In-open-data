@@ -1,0 +1,690 @@
+{
+  "split": "test",
+  "tolerance": 1e-06,
+  "supplementary": {
+    "thin_radius": 1.5,
+    "disc_radius": 45,
+    "methods": {
+      "Frangi": {
+        "thin_tp": 16229,
+        "thin_n": 31901,
+        "thick_tp": 54886,
+        "thick_n": 76869,
+        "fp": 22171,
+        "fp_disc": 2256,
+        "sens_thin": 0.5087301338516034,
+        "sens_thick": 0.7140199560290884
+      },
+      "Matched filter": {
+        "thin_tp": 14967,
+        "thin_n": 31901,
+        "thick_tp": 57321,
+        "thick_n": 76869,
+        "fp": 24720,
+        "fp_disc": 3537,
+        "sens_thin": 0.4691702454468512,
+        "sens_thick": 0.7456972251492799
+      },
+      "U-Net": {
+        "thin_tp": 19573,
+        "thin_n": 31901,
+        "thick_tp": 66515,
+        "thick_n": 76869,
+        "fp": 17466,
+        "fp_disc": 936,
+        "sens_thin": 0.6135544340302812,
+        "sens_thick": 0.8653033082256827
+      }
+    }
+  },
+  "figures": {
+    "roc": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/results/compare_drive/20261013-170521/roc.png",
+    "dice_boxplot": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/results/compare_drive/20261013-170521/dice_boxplot.png",
+    "examples": {
+      "25": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/results/compare_drive/20261013-170521/example_25.png",
+      "28": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/results/compare_drive/20261013-170521/example_28.png",
+      "31": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/results/compare_drive/20261013-170521/example_31.png",
+      "40": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/results/compare_drive/20261013-170521/example_40.png"
+    },
+    "zoom": {
+      "25": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/results/compare_drive/20261013-170521/zoom_25.png",
+      "28": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/results/compare_drive/20261013-170521/zoom_28.png",
+      "31": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/results/compare_drive/20261013-170521/zoom_31.png",
+      "40": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/results/compare_drive/20261013-170521/zoom_40.png"
+    },
+    "crops": {
+      "25": {
+        "optic_disc_center": [
+          274,
+          439
+        ],
+        "thin_center": [
+          305,
+          124
+        ],
+        "size": 128
+      },
+      "28": {
+        "optic_disc_center": [
+          269,
+          469
+        ],
+        "thin_center": [
+          228,
+          118
+        ],
+        "size": 128
+      },
+      "31": {
+        "optic_disc_center": [
+          265,
+          423
+        ],
+        "thin_center": [
+          114,
+          232
+        ],
+        "size": 128
+      },
+      "40": {
+        "optic_disc_center": [
+          275,
+          472
+        ],
+        "thin_center": [
+          202,
+          239
+        ],
+        "size": 128
+      }
+    }
+  },
+  "config_experiment": "drive",
+  "classical_dir": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/results/classical_drive/20261013-165209",
+  "unet_dir": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/results/unet_drive/20261013-164103",
+  "unet_checkpoint": "results/unet_drive_train/20261013-161717/best.pth",
+  "rows": [
+    {
+      "key": "frangi_global",
+      "method": "Frangi",
+      "table": "primary",
+      "threshold_label": "Global t=0.45 (searched on train)",
+      "thresholds": {
+        "25": 0.45,
+        "28": 0.45,
+        "31": 0.45,
+        "40": 0.45
+      },
+      "summary": {
+        "per_image": [
+          {
+            "dice": 0.6322253316958264,
+            "sensitivity": 0.49586280949974737,
+            "specificity": 0.9882267575550082,
+            "accuracy": 0.9196567588251335,
+            "auc": 0.8750391728086038,
+            "tp": 15701,
+            "fp": 2304,
+            "tn": 193394,
+            "fn": 15963,
+            "name": "25"
+          },
+          {
+            "dice": 0.7376901821087326,
+            "sensitivity": 0.687944363376696,
+            "specificity": 0.9707510327084123,
+            "accuracy": 0.9306813532928336,
+            "auc": 0.9107781732461325,
+            "tp": 22158,
+            "fp": 5707,
+            "tn": 189411,
+            "fn": 10051,
+            "name": "28"
+          },
+          {
+            "dice": 0.6641250476553565,
+            "sensitivity": 0.7441825400814193,
+            "specificity": 0.9524215125791611,
+            "accuracy": 0.9342251461346239,
+            "auc": 0.9271649523911882,
+            "tp": 14807,
+            "fp": 9887,
+            "tn": 197917,
+            "fn": 5090,
+            "name": "31"
+          },
+          {
+            "dice": 0.7731863710657558,
+            "sensitivity": 0.73796,
+            "specificity": 0.9788438115797082,
+            "accuracy": 0.9523117185228264,
+            "auc": 0.9470195451889848,
+            "tp": 18449,
+            "fp": 4273,
+            "tn": 197701,
+            "fn": 6551,
+            "name": "40"
+          }
+        ],
+        "mean": {
+          "dice": 0.7018067331314178,
+          "sensitivity": 0.6664874282394656,
+          "specificity": 0.9725607786055724,
+          "accuracy": 0.9342187441938544,
+          "auc": 0.9150004609087272
+        },
+        "std": {
+          "dice": 0.05622311683863336,
+          "sensitivity": 0.10089353237913214,
+          "specificity": 0.013169705920151532,
+          "accuracy": 0.0117464921712734,
+          "auc": 0.026400420786892163
+        },
+        "n_valid": {
+          "dice": 4,
+          "sensitivity": 4,
+          "specificity": 4,
+          "accuracy": 4,
+          "auc": 4
+        },
+        "global": {
+          "dice": 0.7039137664805797,
+          "sensitivity": 0.6538107934173025,
+          "specificity": 0.9723068121919475,
+          "accuracy": 0.9342111629666449,
+          "auc": 0.9089005067261047,
+          "tp": 71115,
+          "fp": 22171,
+          "tn": 778423,
+          "fn": 37655
+        }
+      },
+      "max_abs_diff": 0.0
+    },
+    {
+      "key": "matched_filter_global",
+      "method": "Matched filter",
+      "table": "primary",
+      "threshold_label": "Global t=0.21 (searched on train)",
+      "thresholds": {
+        "25": 0.21,
+        "28": 0.21,
+        "31": 0.21,
+        "40": 0.21
+      },
+      "summary": {
+        "per_image": [
+          {
+            "dice": 0.6446159060549873,
+            "sensitivity": 0.5105482566953007,
+            "specificity": 0.9881092295271285,
+            "accuracy": 0.9216007952076425,
+            "auc": 0.9061767191915329,
+            "tp": 16166,
+            "fp": 2327,
+            "tn": 193371,
+            "fn": 15498,
+            "name": "25"
+          },
+          {
+            "dice": 0.7420616900129249,
+            "sensitivity": 0.6595361544909808,
+            "specificity": 0.9805143554156972,
+            "accuracy": 0.9350363133283772,
+            "auc": 0.9370700839851994,
+            "tp": 21243,
+            "fp": 3802,
+            "tn": 191316,
+            "fn": 10966,
+            "name": "28"
+          },
+          {
+            "dice": 0.6891831179470916,
+            "sensitivity": 0.6553249233552797,
+            "specificity": 0.9764056514792786,
+            "accuracy": 0.9483489312739074,
+            "auc": 0.9407933902513383,
+            "tp": 13039,
+            "fp": 4903,
+            "tn": 202901,
+            "fn": 6858,
+            "name": "31"
+          },
+          {
+            "dice": 0.7216494845360825,
+            "sensitivity": 0.8736,
+            "specificity": 0.9322289007496014,
+            "accuracy": 0.9257712337095879,
+            "auc": 0.9589493442720349,
+            "tp": 21840,
+            "fp": 13688,
+            "tn": 188286,
+            "fn": 3160,
+            "name": "40"
+          }
+        ],
+        "mean": {
+          "dice": 0.6993775496377715,
+          "sensitivity": 0.6747523336353903,
+          "specificity": 0.9693145342929265,
+          "accuracy": 0.9326893183798788,
+          "auc": 0.9357473844250265
+        },
+        "std": {
+          "dice": 0.03681283393418737,
+          "sensitivity": 0.12953023747405906,
+          "specificity": 0.02181917001394058,
+          "accuracy": 0.010265806141332002,
+          "auc": 0.01897344784178139
+        },
+        "n_valid": {
+          "dice": 4,
+          "sensitivity": 4,
+          "specificity": 4,
+          "accuracy": 4,
+          "auc": 4
+        },
+        "global": {
+          "dice": 0.7025823946194443,
+          "sensitivity": 0.6645950170083663,
+          "specificity": 0.9691229262272762,
+          "accuracy": 0.9326980175155384,
+          "auc": 0.9146093775877066,
+          "tp": 72288,
+          "fp": 24720,
+          "tn": 775874,
+          "fn": 36482
+        }
+      },
+      "max_abs_diff": 0.0
+    },
+    {
+      "key": "unet_main",
+      "method": "U-Net",
+      "table": "primary",
+      "threshold_label": "t=0.5",
+      "thresholds": {
+        "25": 0.5,
+        "28": 0.5,
+        "31": 0.5,
+        "40": 0.5
+      },
+      "summary": {
+        "per_image": [
+          {
+            "dice": 0.7797391193918833,
+            "sensitivity": 0.678688731682668,
+            "specificity": 0.9899487986591585,
+            "accuracy": 0.9466005752940245,
+            "auc": 0.9676043429902312,
+            "tp": 21490,
+            "fp": 1967,
+            "tn": 193731,
+            "fn": 10174,
+            "name": "25"
+          },
+          {
+            "dice": 0.8375806944958707,
+            "sensitivity": 0.8076624545934367,
+            "specificity": 0.9800428458676288,
+            "accuracy": 0.9556189981832338,
+            "auc": 0.9801992820666021,
+            "tp": 26014,
+            "fp": 3894,
+            "tn": 191224,
+            "fn": 6195,
+            "name": "28"
+          },
+          {
+            "dice": 0.8095513190833815,
+            "sensitivity": 0.8451525355581243,
+            "specificity": 0.9767521318165194,
+            "accuracy": 0.9652526778538522,
+            "auc": 0.9814310614642986,
+            "tp": 16816,
+            "fp": 4831,
+            "tn": 202973,
+            "fn": 3081,
+            "name": "31"
+          },
+          {
+            "dice": 0.8131186731911396,
+            "sensitivity": 0.87072,
+            "specificity": 0.966461029637478,
+            "accuracy": 0.9559156555376387,
+            "auc": 0.9838400114866269,
+            "tp": 21768,
+            "fp": 6774,
+            "tn": 195200,
+            "fn": 3232,
+            "name": "40"
+          }
+        ],
+        "mean": {
+          "dice": 0.8099974515405688,
+          "sensitivity": 0.8005559304585572,
+          "specificity": 0.9783012014951962,
+          "accuracy": 0.9558469767171873,
+          "auc": 0.9782686745019398
+        },
+        "std": {
+          "dice": 0.020532553513340296,
+          "sensitivity": 0.07384776683113865,
+          "specificity": 0.008385838230368897,
+          "accuracy": 0.006595829063560687,
+          "auc": 0.006294753753265314
+        },
+        "n_valid": {
+          "dice": 4,
+          "sensitivity": 4,
+          "specificity": 4,
+          "accuracy": 4,
+          "auc": 4
+        },
+        "global": {
+          "dice": 0.8109116256287561,
+          "sensitivity": 0.791468235726763,
+          "specificity": 0.9781836986037867,
+          "accuracy": 0.9558504625210587,
+          "auc": 0.9762082407754046,
+          "tp": 86088,
+          "fp": 17466,
+          "tn": 783128,
+          "fn": 22682
+        }
+      },
+      "max_abs_diff": 0.0
+    },
+    {
+      "key": "frangi_otsu",
+      "method": "Frangi",
+      "table": "secondary",
+      "threshold_label": "Otsu (per image)",
+      "thresholds": {
+        "25": 0.388671875,
+        "28": 0.435546875,
+        "31": 0.400390625,
+        "40": 0.427734375
+      },
+      "summary": {
+        "per_image": [
+          {
+            "dice": 0.6559094234990565,
+            "sensitivity": 0.5378979282465892,
+            "specificity": 0.9834540976402416,
+            "accuracy": 0.9214028729515047,
+            "auc": 0.8750391728086038,
+            "tp": 17032,
+            "fp": 3238,
+            "tn": 192460,
+            "fn": 14632,
+            "name": "25"
+          },
+          {
+            "dice": 0.7368264953040039,
+            "sensitivity": 0.6941848551647055,
+            "specificity": 0.9686241146383214,
+            "accuracy": 0.9297399780932314,
+            "auc": 0.9107781732461325,
+            "tp": 22359,
+            "fp": 6122,
+            "tn": 188996,
+            "fn": 9850,
+            "name": "28"
+          },
+          {
+            "dice": 0.644281128569015,
+            "sensitivity": 0.7666482384279037,
+            "specificity": 0.9412860195183923,
+            "accuracy": 0.9260257969881556,
+            "auc": 0.9271649523911882,
+            "tp": 15254,
+            "fp": 12201,
+            "tn": 195603,
+            "fn": 4643,
+            "name": "31"
+          },
+          {
+            "dice": 0.7738629083920564,
+            "sensitivity": 0.74896,
+            "specificity": 0.9768930654440671,
+            "accuracy": 0.9517874293971996,
+            "auc": 0.9470195451889848,
+            "tp": 18724,
+            "fp": 4667,
+            "tn": 197307,
+            "fn": 6276,
+            "name": "40"
+          }
+        ],
+        "mean": {
+          "dice": 0.7027199889410329,
+          "sensitivity": 0.6869227554597995,
+          "specificity": 0.9675643243102555,
+          "accuracy": 0.9322390193575228,
+          "auc": 0.9150004609087272
+        },
+        "std": {
+          "dice": 0.05438496621971913,
+          "sensitivity": 0.09009149455232898,
+          "specificity": 0.01605601729799087,
+          "accuracy": 0.01166631629375607,
+          "auc": 0.026400420786892163
+        },
+        "n_valid": {
+          "dice": 4,
+          "sensitivity": 4,
+          "specificity": 4,
+          "accuracy": 4,
+          "auc": 4
+        },
+        "global": {
+          "dice": 0.7042285966587799,
+          "sensitivity": 0.6745334191413074,
+          "specificity": 0.967239324801335,
+          "accuracy": 0.9322284585710453,
+          "auc": 0.9089005067261047,
+          "tp": 73369,
+          "fp": 26228,
+          "tn": 774366,
+          "fn": 35401
+        }
+      },
+      "max_abs_diff": 0.0
+    },
+    {
+      "key": "matched_filter_otsu",
+      "method": "Matched filter",
+      "table": "secondary",
+      "threshold_label": "Otsu (per image)",
+      "thresholds": {
+        "25": 0.240234375,
+        "28": 0.267578125,
+        "31": 0.251953125,
+        "40": 0.294921875
+      },
+      "summary": {
+        "per_image": [
+          {
+            "dice": 0.525630261635163,
+            "sensitivity": 0.36577817079332997,
+            "specificity": 0.9957945405676093,
+            "accuracy": 0.9080541163431004,
+            "auc": 0.9061767191915329,
+            "tp": 11582,
+            "fp": 823,
+            "tn": 194875,
+            "fn": 20082,
+            "name": "25"
+          },
+          {
+            "dice": 0.6397389323317529,
+            "sensitivity": 0.4838709677419355,
+            "specificity": 0.9952387785852663,
+            "accuracy": 0.9227852388849542,
+            "auc": 0.9370700839851994,
+            "tp": 15585,
+            "fp": 929,
+            "tn": 194189,
+            "fn": 16624,
+            "name": "28"
+          },
+          {
+            "dice": 0.6159865846841811,
+            "sensitivity": 0.47077448861637433,
+            "specificity": 0.9944707512848646,
+            "accuracy": 0.9487090526611653,
+            "auc": 0.9407933902513383,
+            "tp": 9367,
+            "fp": 1149,
+            "tn": 206655,
+            "fn": 10530,
+            "name": "31"
+          },
+          {
+            "dice": 0.7300596216140087,
+            "sensitivity": 0.62204,
+            "specificity": 0.989845227603553,
+            "accuracy": 0.9493334038259889,
+            "auc": 0.9589493442720349,
+            "tp": 15551,
+            "fp": 2051,
+            "tn": 199923,
+            "fn": 9449,
+            "name": "40"
+          }
+        ],
+        "mean": {
+          "dice": 0.6278538500662765,
+          "sensitivity": 0.48561590678791,
+          "specificity": 0.9938373245103234,
+          "accuracy": 0.9322204529288022,
+          "auc": 0.9357473844250265
+        },
+        "std": {
+          "dice": 0.0727629179897067,
+          "sensitivity": 0.0910987495559959,
+          "specificity": 0.0023522773758011374,
+          "accuracy": 0.017590921647047536,
+          "auc": 0.01897344784178139
+        },
+        "n_valid": {
+          "dice": 4,
+          "sensitivity": 4,
+          "specificity": 4,
+          "accuracy": 4,
+          "auc": 4
+        },
+        "global": {
+          "dice": 0.6282605680097946,
+          "sensitivity": 0.4788544635469339,
+          "specificity": 0.9938145926649463,
+          "accuracy": 0.9322196612137714,
+          "auc": 0.9146093775877066,
+          "tp": 52085,
+          "fp": 4952,
+          "tn": 795642,
+          "fn": 56685
+        }
+      },
+      "max_abs_diff": 0.0
+    },
+    {
+      "key": "unet_best_val",
+      "method": "U-Net",
+      "table": "secondary",
+      "threshold_label": "t=0.38 (searched on val)",
+      "thresholds": {
+        "25": 0.38,
+        "28": 0.38,
+        "31": 0.38,
+        "40": 0.38
+      },
+      "summary": {
+        "per_image": [
+          {
+            "dice": 0.7925919393244554,
+            "sensitivity": 0.7095755432036382,
+            "specificity": 0.9869032897627977,
+            "accuracy": 0.9482807153350165,
+            "auc": 0.9676043429902312,
+            "tp": 22468,
+            "fp": 2563,
+            "tn": 193135,
+            "fn": 9196,
+            "name": "25"
+          },
+          {
+            "dice": 0.8393964610384512,
+            "sensitivity": 0.82992331335962,
+            "specificity": 0.9756506319252964,
+            "accuracy": 0.9550031452489146,
+            "auc": 0.9801992820666021,
+            "tp": 26731,
+            "fp": 4751,
+            "tn": 190367,
+            "fn": 5478,
+            "name": "28"
+          },
+          {
+            "dice": 0.8035128805620609,
+            "sensitivity": 0.8621902799416997,
+            "specificity": 0.9728205424342169,
+            "accuracy": 0.963153433669593,
+            "auc": 0.9814310614642986,
+            "tp": 17155,
+            "fp": 5648,
+            "tn": 202156,
+            "fn": 2742,
+            "name": "31"
+          },
+          {
+            "dice": 0.8064051882753721,
+            "sensitivity": 0.88532,
+            "specificity": 0.9615792131660511,
+            "accuracy": 0.9531796593442421,
+            "auc": 0.9838400114866269,
+            "tp": 22133,
+            "fp": 7760,
+            "tn": 194214,
+            "fn": 2867,
+            "name": "40"
+          }
+        ],
+        "mean": {
+          "dice": 0.8104766173000849,
+          "sensitivity": 0.8217522841262395,
+          "specificity": 0.9742384193220904,
+          "accuracy": 0.9549042383994415,
+          "auc": 0.9782686745019398
+        },
+        "std": {
+          "dice": 0.017473474409825253,
+          "sensitivity": 0.06768765199378592,
+          "specificity": 0.00900915039122482,
+          "accuracy": 0.005359669669685027,
+          "auc": 0.006294753753265314
+        },
+        "n_valid": {
+          "dice": 4,
+          "sensitivity": 4,
+          "specificity": 4,
+          "accuracy": 4,
+          "auc": 4
+        },
+        "global": {
+          "dice": 0.8118855486078934,
+          "sensitivity": 0.813523949618461,
+          "specificity": 0.974116718336635,
+          "accuracy": 0.9549080456230948,
+          "auc": 0.9762082407754046,
+          "tp": 88487,
+          "fp": 20722,
+          "tn": 779872,
+          "fn": 20283
+        }
+      },
+      "max_abs_diff": 0.0
+    }
+  ]
+}

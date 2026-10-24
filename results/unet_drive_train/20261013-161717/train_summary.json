@@ -1,0 +1,9 @@
+{
+  "best_epoch": 44,
+  "best_val_dice": 0.8307743227160566,
+  "epochs_run": 69,
+  "max_epochs": 150,
+  "stopped_early": true,
+  "wall_time_s": 1374.8492321968079,
+  "checkpoint": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/results/unet_drive_train/20261013-161717/best.pth"
+}

@@ -1,0 +1,156 @@
+{
+  "experiment": "drive",
+  "data": {
+    "name": "drive",
+    "root": "data/DRIVE",
+    "split": {
+      "seed": 2026,
+      "sizes": {
+        "train": 12,
+        "val": 4,
+        "test": 4
+      }
+    }
+  },
+  "preprocess": {
+    "green_channel": true,
+    "clahe": {
+      "enabled": true,
+      "clip_limit": 2.0,
+      "tile_grid": [
+        8,
+        8
+      ]
+    },
+    "fill_outside_fov": {
+      "enabled": true,
+      "iterations": 20,
+      "erode_px": 5
+    },
+    "denoise": {
+      "method": "gaussian",
+      "sigma": 1.5,
+      "ksize": 3
+    }
+  },
+  "classical": {
+    "frangi": {
+      "sigmas": [
+        1.0,
+        1.5,
+        2.0,
+        2.5,
+        3.0
+      ],
+      "alpha": 0.5,
+      "beta": 1.0,
+      "gamma": 0.006,
+      "black_ridges": true
+    },
+    "matched_filter": {
+      "sigma": 1.0,
+      "length": 13,
+      "n_angles": 12,
+      "dark_vessels": true
+    },
+    "normalize": {
+      "fov_erode_px": 0
+    },
+    "threshold": {
+      "search_split": "train",
+      "search_criterion": "mean_dice",
+      "grid": [
+        0.01,
+        0.99,
+        0.01
+      ]
+    },
+    "save_splits": [
+      "test"
+    ],
+    "n_figure_images": 4
+  },
+  "unet": {
+    "in_channels": 1,
+    "out_channels": 1,
+    "base_channels": 32,
+    "depth": 4,
+    "preprocess": {
+      "green_channel": true,
+      "clahe": {
+        "enabled": true,
+        "clip_limit": 2.0,
+        "tile_grid": [
+          8,
+          8
+        ]
+      },
+      "fill_outside_fov": {
+        "enabled": false
+      },
+      "denoise": {
+        "method": "none"
+      }
+    }
+  },
+  "train": {
+    "seed": 2026,
+    "patch_size": 96,
+    "patches_per_image": 200,
+    "fov_bias": 0.8,
+    "batch_size": 32,
+    "epochs": 150,
+    "optimizer": {
+      "lr": 0.001,
+      "weight_decay": 0.0001,
+      "min_lr": 1e-05,
+      "warmup_epochs": 3
+    },
+    "grad_clip": 1.0,
+    "loss": {
+      "bce_weight": 1.0,
+      "dice_weight": 1.0,
+      "dice_in_fov": true,
+      "bce_in_fov": false,
+      "smooth": 1.0
+    },
+    "early_stopping": {
+      "patience": 25,
+      "min_delta": 0.0005
+    },
+    "val_threshold": 0.5,
+    "augment": {
+      "enabled": true,
+      "hflip": 0.5,
+      "vflip": 0.5,
+      "rot90": true,
+      "rotate_prob": 0.5,
+      "rotate_deg": 15.0,
+      "brightness": 0.1,
+      "contrast": 0.1
+    },
+    "overfit": {
+      "patches_per_image": 200,
+      "epochs": 30
+    }
+  },
+  "infer": {
+    "patch_size": 96,
+    "stride": 32,
+    "batch_size": 64
+  },
+  "test": {
+    "threshold": 0.5,
+    "threshold_grid": [
+      0.05,
+      0.95,
+      0.01
+    ]
+  },
+  "compare": {
+    "classical_dir": "results/classical_drive/20261013-165209",
+    "unet_dir": "results/unet_drive/20261013-164103",
+    "split": "test",
+    "tolerance": 1e-06
+  }
+}

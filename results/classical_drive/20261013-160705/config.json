@@ -1,0 +1,74 @@
+{
+  "experiment": "drive",
+  "data": {
+    "root": "data/DRIVE",
+    "split": {
+      "seed": 2026,
+      "sizes": {
+        "train": 12,
+        "val": 4,
+        "test": 4
+      }
+    }
+  },
+  "preprocess": {
+    "green_channel": true,
+    "clahe": {
+      "enabled": true,
+      "clip_limit": 2.0,
+      "tile_grid": [
+        8,
+        8
+      ]
+    },
+    "fill_outside_fov": {
+      "enabled": true,
+      "iterations": 20,
+      "erode_px": 5
+    },
+    "denoise": {
+      "method": "gaussian",
+      "sigma": 1.5,
+      "ksize": 3
+    }
+  },
+  "classical": {
+    "frangi": {
+      "sigmas": [
+        1.0,
+        1.5,
+        2.0,
+        2.5,
+        3.0
+      ],
+      "alpha": 0.5,
+      "beta": 1.0,
+      "gamma": 0.006,
+      "black_ridges": true
+    },
+    "matched_filter": {
+      "sigma": 1.5,
+      "length": 11,
+      "n_angles": 12,
+      "dark_vessels": true
+    },
+    "normalize": {
+      "fov_erode_px": 0
+    },
+    "threshold": {
+      "search_split": "train",
+      "search_criterion": "mean_dice",
+      "grid": [
+        0.01,
+        0.99,
+        0.01
+      ]
+    },
+    "save_splits": [
+      "test"
+    ],
+    "n_figure_images": 4
+  },
+  "unet": {},
+  "train": {}
+}

@@ -1,0 +1,194 @@
+{
+  "checkpoint": "results/unet_drive_train/20261013-161717/best.pth",
+  "checkpoint_epoch": 44,
+  "config": "configs/drive.yaml",
+  "preprocess": {
+    "green_channel": true,
+    "clahe": {
+      "enabled": true,
+      "clip_limit": 2.0,
+      "tile_grid": [
+        8,
+        8
+      ]
+    },
+    "fill_outside_fov": {
+      "enabled": false
+    },
+    "denoise": {
+      "method": "none"
+    }
+  },
+  "infer": {
+    "patch_size": 96,
+    "stride": 32,
+    "batch_size": 64
+  },
+  "threshold": 0.38,
+  "threshold_source": "results/unet_drive/20261013-164103/metrics.json 的 best_val_threshold（val split 上选出）",
+  "images_dir": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/data/DRIVE/test/images",
+  "mask_dir": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/data/DRIVE/test/mask",
+  "zip": "drive_submission.zip",
+  "images": [
+    {
+      "source": "01_test.tif",
+      "mask": "01_test_mask.gif",
+      "png": "1.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.15563983830784794
+    },
+    {
+      "source": "02_test.tif",
+      "mask": "02_test_mask.gif",
+      "png": "2.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.15798335754619325
+    },
+    {
+      "source": "03_test.tif",
+      "mask": "03_test_mask.gif",
+      "png": "3.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.12785798774625987
+    },
+    {
+      "source": "04_test.tif",
+      "mask": "04_test_mask.gif",
+      "png": "4.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.13002632076176415
+    },
+    {
+      "source": "05_test.tif",
+      "mask": "05_test_mask.gif",
+      "png": "5.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.12316144984694304
+    },
+    {
+      "source": "06_test.tif",
+      "mask": "06_test_mask.gif",
+      "png": "6.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.1243038430938158
+    },
+    {
+      "source": "07_test.tif",
+      "mask": "07_test_mask.gif",
+      "png": "7.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.12065883386406061
+    },
+    {
+      "source": "08_test.tif",
+      "mask": "08_test_mask.gif",
+      "png": "8.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.11373685892882511
+    },
+    {
+      "source": "09_test.tif",
+      "mask": "09_test_mask.gif",
+      "png": "9.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.11171044540103664
+    },
+    {
+      "source": "10_test.tif",
+      "mask": "10_test_mask.gif",
+      "png": "10.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.12215174282547112
+    },
+    {
+      "source": "11_test.tif",
+      "mask": "11_test_mask.gif",
+      "png": "11.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.14046107789688078
+    },
+    {
+      "source": "12_test.tif",
+      "mask": "12_test_mask.gif",
+      "png": "12.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.13135475934184224
+    },
+    {
+      "source": "13_test.tif",
+      "mask": "13_test_mask.gif",
+      "png": "13.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.1389758241758242
+    },
+    {
+      "source": "14_test.tif",
+      "mask": "14_test_mask.gif",
+      "png": "14.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.13112010413807149
+    },
+    {
+      "source": "15_test.tif",
+      "mask": "15_test_mask.gif",
+      "png": "15.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.11984045313420759
+    },
+    {
+      "source": "16_test.tif",
+      "mask": "16_test_mask.gif",
+      "png": "16.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.13714898064946815
+    },
+    {
+      "source": "17_test.tif",
+      "mask": "17_test_mask.gif",
+      "png": "17.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.12410352216181757
+    },
+    {
+      "source": "18_test.tif",
+      "mask": "18_test_mask.gif",
+      "png": "18.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.13760698029980845
+    },
+    {
+      "source": "19_test.tif",
+      "mask": "19_test_mask.gif",
+      "png": "19.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.1416829384136366
+    },
+    {
+      "source": "20_test.tif",
+      "mask": "20_test_mask.gif",
+      "png": "20.png",
+      "height": 584,
+      "width": 565,
+      "vessel_fraction_in_fov": 0.1285716169354307
+    }
+  ]
+}

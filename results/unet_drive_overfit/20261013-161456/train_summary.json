@@ -1,0 +1,9 @@
+{
+  "best_epoch": 28,
+  "best_val_dice": 0.8851503721605989,
+  "epochs_run": 30,
+  "max_epochs": 30,
+  "stopped_early": false,
+  "wall_time_s": 121.88431429862976,
+  "checkpoint": "/Users/faradaymicheal/project_CLAUDE/vessel-seg/results/unet_drive_overfit/20261013-161456/best.pth"
+}
