@@ -1,0 +1,29 @@
+[project]
+name = "vessel-seg"
+version = "0.1.0"
+description = "DRIVE 眼底血管分割：经典方法 baseline vs 手写 U-Net，并迁移到 OCTA"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "torch",
+    "torchvision",
+    "numpy",
+    "opencv-python",
+    "scikit-image",
+    "scikit-learn",
+    "matplotlib",
+    "pyyaml",
+    "tqdm",
+    "pillow",
+    "tifffile",
+]
+
+[dependency-groups]
+dev = ["pytest"]
+
+[tool.uv]
+# 本仓库是脚本/实验项目，不需要被打包安装；用 `python -m` 从仓库根目录运行
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
