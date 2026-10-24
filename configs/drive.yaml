@@ -1,0 +1,136 @@
+# DRIVE 实验配置。
+# 路径均相对仓库根目录（vessel-seg/）；运行脚本时请在仓库根目录下用 `python -m ...`。
+# 后续任务只在对应小节里补字段，不改已有字段的含义。
+
+experiment: drive
+
+data:
+  name: drive               # 数据集注册名（datasets/__init__.py::DATASETS）；阶段二改为 rose 等
+  root: data/DRIVE          # 软链接 -> ../../Drive，含 training/ 与 test/
+  # 偏离计划书说明：用户手中的 DRIVE 版本测试集没有 1st_manual 标签，
+  # 因此 train/val/test 全部从 20 张带标签的训练图（21..40）中固定划分。
+  split:
+    seed: 2026              # 划分种子：同一种子永远得到同一划分
+    sizes:
+      train: 12
+      val: 4
+      test: 4
+
+# ---------------- 任务 1.2 经典 baseline ----------------
+# 参数只在 train split（12 张）上调过，从未看 test。可复现的网格搜索：python -m classical.tune_baseline
+# （只读 train，结果在 results/classical_tune/<时间戳>/；见 README 任务 1.2 说明）。
+preprocess:
+  green_channel: true       # 眼底 RGB 取绿通道；OCTA（单通道）设为 false 即跳过
+  clahe:
+    enabled: true
+    clip_limit: 2.0         # 对比度上限：3.0 在 train 上略差（噪声被放大）
+    tile_grid: [8, 8]       # 584×565 图上每块约 73×71 像素
+  fill_outside_fov:         # FOV 外逐圈取邻域均值填充，消除 FOV 边界阶跃产生的假响应
+    enabled: true
+    iterations: 20          # 填充环带宽度（像素），需大于滤波核半径（MF 核数组半径 8 = ceil(hypot(3σ, L/2))）
+    erode_px: 5             # FOV 最外圈 5 像素也重新填充：DRIVE 掩膜边缘内侧约 3 像素是暗边，
+                            # 不处理会在二值图上出现一整圈假阳性；train 上 0/2/3/5/8 中 5 最好
+  denoise:
+    method: gaussian        # gaussian / median / none
+    sigma: 1.5              # 高斯 σ（像素）；train 上 0 / 1.0 / 1.5 / 2.0 中 1.5 对两种滤波都较好
+    ksize: 3                # 仅 median 使用（3 或 5）
+
+classical:
+  frangi:
+    sigmas: [1.0, 1.5, 2.0, 2.5, 3.0]   # 覆盖 DRIVE 血管半径约 1–3 像素
+    alpha: 0.5              # 2D 下不起作用（skimage 仅 3D 使用）
+    beta: 1.0               # 线状/斑点区分（R_B）的灵敏度
+    gamma: 0.006            # 结构度 S 的尺度；skimage 默认 None（自动取 Hessian 范数最大值的一半）时
+                            # 响应被少数极大值主导、分布极度右偏，Otsu Dice 仅约 0.3（train）；
+                            # 固定 gamma 后响应在血管处饱和，分布可被 Otsu 正常分开
+    black_ridges: true      # 绿通道中血管为暗；OCTA 血管为亮时设为 false
+  matched_filter:
+    sigma: 1.0              # 高斯横截面 σ（像素）
+    length: 13              # 沿血管方向的模板长度 L（像素）
+                            # 原为 σ=1.5, L=11（train 平均 Dice 0.6697）；tune_baseline 网格最优
+                            # σ=1.0, L=13（0.7030，12 张中 9 张提升），故改用。注意两者都在网格边缘
+    n_angles: 12            # 每 15° 一个方向
+    dark_vessels: true      # 血管比背景暗；OCTA 设为 false
+  normalize:
+    fov_erode_px: 0         # 计算 min/max 时 FOV 腐蚀像素数；已启用 FOV 外填充，train 上腐蚀无收益，故为 0
+  threshold:
+    search_split: train     # 全局阈值只在 train split 上搜索
+    search_criterion: mean_dice   # 最大化 train 上的逐图平均 Dice
+    grid: [0.01, 0.99, 0.01]      # 候选阈值 start, stop(含), step
+  save_splits: [test]       # 保存响应图 / 二值图 / npy 的 split
+  n_figure_images: 4        # 对比图张数（取 test 的前 n 张）
+
+# ---------------- 任务 1.4 U-Net ----------------
+unet:
+  in_channels: 1            # 预处理后为单通道
+  out_channels: 1           # 1 通道 logits
+  base_channels: 32         # 32→64→128→256→512
+  depth: 4                  # 下采样次数
+  preprocess:               # 与经典方法同一套函数（classical/preprocess.py），开关独立
+    green_channel: true     # OCTA 设为 false
+    clahe:
+      enabled: true
+      clip_limit: 2.0
+      tile_grid: [8, 8]
+    fill_outside_fov:
+      enabled: false        # 网络能自己学会 FOV 边界，不做填充
+    denoise:
+      method: none          # U-Net 输入不去噪（可选 gaussian / median）
+
+train:
+  seed: 2026
+  patch_size: 96            # 训练 patch 边长（16 的倍数）
+  patches_per_image: 200    # 每个 epoch 每张训练图采样的 patch 数（12 张 → 2400 个 patch/epoch）
+  fov_bias: 0.8             # patch 中心落在 FOV 内的概率
+  batch_size: 32
+  epochs: 150               # 最大 epoch（余弦周期按此计算）；early stopping 通常更早停止
+  optimizer:
+    lr: 1.0e-3              # AdamW 初始学习率
+    weight_decay: 1.0e-4
+    min_lr: 1.0e-5          # 余弦退火终点
+    warmup_epochs: 3        # 线性 warmup
+  grad_clip: 1.0            # 梯度整体 L2 范数上限
+  loss:
+    bce_weight: 1.0
+    dice_weight: 1.0
+    dice_in_fov: true       # Dice loss 只在 FOV 内算
+    bce_in_fov: false
+    smooth: 1.0
+  early_stopping:
+    patience: 25            # 连续 25 个 epoch 验证 Dice 无提升则停止
+    min_delta: 0.0005
+  val_threshold: 0.5        # 验证 Dice 的二值化阈值
+  augment:
+    enabled: true
+    hflip: 0.5
+    vflip: 0.5
+    rot90: true
+    rotate_prob: 0.5
+    rotate_deg: 15.0
+    brightness: 0.1
+    contrast: 0.1
+  overfit:                  # scripts/train.py --overfit N 时使用（无增强、在同 N 张图上验证）
+    patches_per_image: 200
+    epochs: 30
+
+infer:                      # 滑窗推理（验证与测试共用）
+  patch_size: 96
+  stride: 32                # 重叠 2/3，每个像素被约 9 个窗口平均
+  batch_size: 64
+
+test:
+  threshold: 0.5            # 主报告阈值
+  threshold_grid: [0.05, 0.95, 0.01]   # 只在 val 上搜索最佳阈值（附加报告），从不看 test
+
+# ---------------- 任务 1.5 对比报告 ----------------
+compare:                    # python -m eval.evaluate；命令行 --classical-dir / --unet-dir 可覆盖
+  classical_dir: results/classical_drive/20261013-165209   # classical.run_baseline 输出（含 maps/test/*.npy）
+  unet_dir: results/unet_drive/20261013-164103             # scripts.test 输出（含 probs/*.npy）
+  split: test
+  tolerance: 1.0e-6         # 重算指标与来源 metrics.json 的最大允许差
+  supplementary: true       # 补充分析：细 / 粗血管召回率（启发式；缺省 false，新数据集 config 不写就不跑）
+  supplementary_optic_disc: true   # 视盘区域 FP 与视盘局部放大图（眼底图特有；缺省 false，OCTA 不要开）
+
+# ---------------- 官方测试集提交 ----------------
+submission:                 # python -m scripts.predict_submission；--threshold 可覆盖
+  threshold_from: results/unet_drive/20261013-164103/metrics.json   # 读其中 best_val_threshold（只在 val 上选）
